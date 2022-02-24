@@ -17,12 +17,14 @@ const authorEntry = document.querySelector("#author");
 const pageEntry = document.querySelector("#pages");
 const readEntry = document.querySelector("#read");
 
+// This function pops up the book entry window
 function makeBook() {
   addBook.classList.toggle("hidden");
   heading.style.opacity = "50%";
   bookContainer.style.opacity = "50%";
 }
 
+// This function creates the book card after the user has entered correct info into the book entry window
 function addCard(title, author, pages, read) {
   const newDiv = document.createElement("div");
   newDiv.style.background = "green";
@@ -48,6 +50,7 @@ function addCard(title, author, pages, read) {
 
   const readPlace = document.createElement("button");
   readPlace.classList.add("small-button");
+  readPlace.addEventListener('click', toggleRead)
   readPlace.textContent = read ? "Read" : "Not Read";
 
   newDiv.appendChild(titlePlace);
@@ -108,17 +111,12 @@ function addBookToLibrary(e) {
   bookContainer.style.opacity = "100%";
 }
 
-function checkInput() {
-  if (!titleEntry.checkValidity()) {
-    alert("Wrong");
-    return;
-  }
-  if (!authorEntry.checkValidity()) {
-    alert("Wrong");
-    return;
-  }
-  if (!pageEntry.checkValidity()) {
-    alert("Wrong");
-    return;
-  }
+// Allow user to toggle whether they have read a book or not.
+function toggleRead(e) {
+    if (e.target.textContent === 'Read') {
+        e.target.textContent = 'Not Read';
+        return
+    }
+    e.target.textContent = 'Read'
+    return
 }
