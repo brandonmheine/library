@@ -38,6 +38,7 @@ function addCard(title, author, pages, read) {
   newDiv.style.borderRadius = "2rem";
 
   const titlePlace = document.createElement("div");
+  titlePlace.classList.add('title');
   titlePlace.style.fontSize = "1.75rem";
   titlePlace.textContent = `${title}`;
 
@@ -127,9 +128,21 @@ function toggleRead(e) {
     return
 }
 
-
+// Allow the user to remove a book from the library
 function remove(e) {
     parent = e.target.parentElement;
     console.log(parent);
     parent.style.display = 'none';
+
+    parentTitle= parent.querySelector('.title').textContent;
+    deleteBook(parentTitle);
+}
+
+// Delete the removed book from myLibrary
+function deleteBook(title) {
+    for (let i = 0; i < myLibrary.length; i++) {
+        if (myLibrary[i].title === title) {
+            myLibrary.splice(i);
+        }
+    }
 }
