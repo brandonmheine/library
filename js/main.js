@@ -53,10 +53,16 @@ function addCard(title, author, pages, read) {
   readPlace.addEventListener('click', toggleRead)
   readPlace.textContent = read ? "Read" : "Not Read";
 
+  const removePlace = document.createElement('button');
+  removePlace.classList.add("small-button");
+  removePlace.addEventListener('click', remove)
+  removePlace.textContent = "Remove";
+
   newDiv.appendChild(titlePlace);
   newDiv.appendChild(authorPlace);
   newDiv.appendChild(pagesPlace);
   newDiv.appendChild(readPlace);
+  newDiv.appendChild(removePlace);
 
   bookContainer.appendChild(newDiv);
 }
@@ -119,4 +125,11 @@ function toggleRead(e) {
     }
     e.target.textContent = 'Read'
     return
+}
+
+
+function remove(e) {
+    parent = e.target.parentElement;
+    console.log(parent);
+    parent.style.display = 'none';
 }
