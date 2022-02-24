@@ -38,7 +38,7 @@ function addCard(title, author, pages, read) {
   newDiv.style.borderRadius = "2rem";
 
   const titlePlace = document.createElement("div");
-  titlePlace.classList.add('title');
+  titlePlace.classList.add("title");
   titlePlace.style.fontSize = "1.75rem";
   titlePlace.textContent = `${title}`;
 
@@ -51,12 +51,12 @@ function addCard(title, author, pages, read) {
 
   const readPlace = document.createElement("button");
   readPlace.classList.add("small-button");
-  readPlace.addEventListener('click', toggleRead)
+  readPlace.addEventListener("click", toggleRead);
   readPlace.textContent = read ? "Read" : "Not Read";
 
-  const removePlace = document.createElement('button');
+  const removePlace = document.createElement("button");
   removePlace.classList.add("small-button");
-  removePlace.addEventListener('click', remove)
+  removePlace.addEventListener("click", remove);
   removePlace.textContent = "Remove";
 
   newDiv.appendChild(titlePlace);
@@ -95,6 +95,11 @@ function addBookToLibrary(e) {
     alert("Please enter how many pages the book is.");
     return;
   }
+  if (bookExistsInLibrary(titleEntry.value)) {
+    alert("That book is already in the library");
+    clearInputs();
+    return;
+  }
 
   // Create new book with info from form
   const bookToAdd = new Book(
@@ -109,40 +114,53 @@ function addBookToLibrary(e) {
   addCard(bookToAdd.title, bookToAdd.author, bookToAdd.pages, bookToAdd.read);
 
   //Clear inputs and hide form
-  titleEntry.value = "";
-  authorEntry.value = "";
-  pageEntry.value = "";
-  readEntry.value = "";
+  clearInputs();
   addBook.classList.toggle("hidden");
   heading.style.opacity = "100%";
   bookContainer.style.opacity = "100%";
 }
 
+// Clear inputs of book entry popup
+function clearInputs() {
+  titleEntry.value = "";
+  authorEntry.value = "";
+  pageEntry.value = "";
+  readEntry.value = "";
+}
+
 // Allow user to toggle whether they have read a book or not.
 function toggleRead(e) {
-    if (e.target.textContent === 'Read') {
-        e.target.textContent = 'Not Read';
-        return
-    }
-    e.target.textContent = 'Read'
-    return
+  if (e.target.textContent === "Read") {
+    e.target.textContent = "Not Read";
+    return;
+  }
+  e.target.textContent = "Read";
+  return;
 }
 
 // Allow the user to remove a book from the library
 function remove(e) {
-    parent = e.target.parentElement;
-    console.log(parent);
-    parent.style.display = 'none';
-
-    parentTitle= parent.querySelector('.title').textContent;
-    deleteBook(parentTitle);
+  parent = e.target.parentElement;
+  parent.style.display = "none";
+  parentTitle = parent.querySelector(".title").textContent;
+  deleteBook(parentTitle);
 }
 
 // Delete the removed book from myLibrary
 function deleteBook(title) {
-    for (let i = 0; i < myLibrary.length; i++) {
-        if (myLibrary[i].title === title) {
-            myLibrary.splice(i);
-        }
+  for (let i = 0; i < myLibrary.length; i++) {
+    if (myLibrary[i].title === title) {
+      myLibrary.splice(i);
     }
+  }
+}
+
+// Check if the book is already in the library
+function bookExistsInLibrary(title) {
+  for (let i = 0; i < myLibrary.length; i++) {
+    if (myLibrary[i].title === title) {
+      return true;
+    }
+  }
+  return false;
 }
