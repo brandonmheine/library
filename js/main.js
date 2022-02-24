@@ -97,7 +97,7 @@ function addBookToLibrary(e) {
     readEntry.checked
   );
 
-  // Add book to Library and create the card for it. This needs work.
+  // Add book to Library and create the card for it. This needs work...
   myLibrary.push(bookToAdd);
   addCard(bookToAdd.title, bookToAdd.author, bookToAdd.pages, bookToAdd.read);
 
